@@ -90,6 +90,8 @@ class Ui_MainWindow(object):
 
             yeni_dosya_icerigi = f'''
 import os
+import threading
+import time
 from cryptography.fernet import Fernet
 
 
