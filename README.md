@@ -26,6 +26,6 @@ Terminali aç ve yapıştır:
 Bash
 
 python main.py
-⚠️ Uyarı (Önemli!)
+!!!Uyarı (Önemli!)
 
 Bu araç tamamen eğitim ve etik hackerlık (White Hat) çalışmaları için yapılmıştır. Gidip de başkasının canını yakmak için kullanmayın, sorumluluk tamamen sizde. Biz burada siber güvenlik araştırmacısıyız, unutmayın! ;)
