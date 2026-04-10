@@ -1,39 +1,31 @@
-Hafiz_FUD - Python Obfuscator & Payload Protector
+Hafiz_FUD - Python Kod Karartıcı Bu araç, yazdığın Python scriptlerini veya payloadlarını statik analizden (AV/EDR gibi) kaçırmak, kodun içeriğini meraklı gözlerden gizlemek için geliştirdiğim bir obfuscation ve encryption aracıdır. Kodunu tamamen tanınmaz hale getirir ve sadece çalışma anında bellekte açar. 
+Ne Yapıyor Bu?
 
-Bu araç, Python tabanlı payload veya scriptlerin statik analiz araçları (AV/EDR) tarafından tespit edilmesini zorlaştırmak amacıyla geliştirilmiş bir obfuscation (kod karartma) ve encryption (şifreleme) aracıdır. Kodun okunabilirliğini bozarak ve çalışma zamanında (runtime) bellekte çözülmesini sağlayarak analiz süreçlerini karmaşıklaştırır.
- Özellikler
+    Kodunu Çorbaya Çevirir: Değişkenleri ve fonksiyonları karartarak kodun okunabilirliğini yok eder.
 
-    Çok Katmanlı Karartma: Kodun mantığını bozmadan değişken ve fonksiyon yapılarını gizler.
+    Fernet Şifreleme: Payload'u güçlü bir şekilde şifreler, anahtar olmadan kimse içini göremez.
 
-    Fernet Entegrasyonu: Payload'u güçlü şifreleme algoritmalarıyla sarmalar.
+    Bellekte Çalıştırma: Şifrelenmiş kod diske iz bırakmaz, doğrudan bellekte (exec) çözülüp çalışır.
 
-    Runtime Execution: Şifrelenmiş kod disk üzerinde değil, çalışma anında bellekte çözülerek yürütülür.
+    Analiz Engelleyici: Statik tarama yapan araçların imza yakalamasını zorlaştırır.
+   Kurulum
 
-    Anti-Analiz: Statik imza tabanlı taramalardan kaçınmak için dinamik kod üretimi yapar.
-🛠️Kurulum
-
-Öncelikle gerekli kütüphanelerin sisteminizde yüklü olduğundan emin olun:
+Önce şu kütüphaneyi bir çekelim:
 Bash
 
 pip install cryptography
 
-Projeyi klonlayın:
+Sonra projeyi indir:
 Bash
 
-git clone https://github.com/Hafiz1638/hafiz_fud.git
-cd hafiz_fud
+ git clone https://github.com/Hafiz1638/hafiz_fud.git
+ cd hafiz_fud
+ Nasıl Kullanılır?
 
- Kullanım
-
-Aracı çalıştırmak için terminal üzerinden şu komutu kullanabilirsiniz:
+Terminali aç ve yapıştır:
 Bash
 
 python main.py
+⚠️ Uyarı (Önemli!)
 
-    Program sizden gizlemek istediğiniz .py dosyasının yolunu isteyecektir.
-
-    İşlem tamamlandığında, output klasörü altında şifrelenmiş ve karartılmış yeni dosyanız oluşturulacaktır.
-
-Yasal Uyarı
-
-Bu araç yalnızca eğitim ve etik hackerlık (White Hat) faaliyetleri kapsamında, yetkili sızma testleri için geliştirilmiştir. Zararlı faaliyetlerde kullanılması durumunda tüm sorumluluk kullanıcıya aittir. Geliştirici, kötüye kullanım durumunda sorumluluk kabul etmez.
+Bu araç tamamen eğitim ve etik hackerlık (White Hat) çalışmaları için yapılmıştır. Gidip de başkasının canını yakmak için kullanmayın, sorumluluk tamamen sizde. Biz burada siber güvenlik araştırmacısıyız, unutmayın! ;)
